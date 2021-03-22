@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-9">
       <h2><%= gettext("Authorized Applications") %></h2>
+      <p><%= gettext("This table shows all the applications you have authorized. This could be a chatbot, widget, alert, or other service.") %>
     </div>
     <div class="col-3">
 
@@ -21,10 +22,17 @@
           </tr>
         </thead>
         <tbody>
+        <%= if @applications == [] do %>
+          <tr>
+            <td>
+            <%= gettext("No authorized applications were found")%>
+            <td>
+          </tr>
+        <% else %>
           <%= for application <- @applications do %>
           <tr>
             <td><%= application.name %></td>
-            <%= if application.app.homepage_url do%>
+            <%= if application.app.homepage_url do %>
               <td><%= link application.app.homepage_url, to: application.app.homepage_url %></td>
             <% else %>
               <td>N/A</td>
@@ -35,6 +43,7 @@
             </td>
           </tr>
           <% end %>
+        <% end %>
         </tbody>
       </table>
     </div>
